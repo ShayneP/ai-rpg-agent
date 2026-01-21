@@ -1,0 +1,108 @@
+prefabs:
+  # Taverns / starter area
+  - name: Barkeep Mort
+    role: barkeep
+    disposition: friendly
+    merchant: true
+    class: rogue
+    level: 2
+    gold: 35
+    inventory:
+      - name: stout ale
+        type: consumable
+        quantity: 2
+        description: A dark, malty ale with a hint of smoke.
+        properties: {}
+      - name: tavern ledger
+        type: misc
+        quantity: 1
+        description: A worn book of tabs and local gossip.
+        properties: {}
+    dialogue:
+      - "Evening, traveler. First drink's on the house if you bring good stories."
+      - "If you're looking for work, I've heard odd noises from the back room."
+
+  - name: Armorer Tessa
+    role: armorer
+    disposition: friendly
+    merchant: true
+    class: warrior
+    level: 3
+    gold: 120
+    inventory:
+      - name: reinforced gauntlets
+        type: armor
+        quantity: 1
+        description: Leather gauntlets with steel plates, built to deflect glancing blows.
+        properties:
+          armor_class: 12
+      - name: chain shirt
+        type: armor
+        quantity: 1
+        description: A mesh of interlocking rings, sturdy but flexible.
+        properties:
+          armor_class: 13
+      - name: whetstone
+        type: misc
+        quantity: 1
+        description: Keeps a blade keen and true.
+        properties: {}
+    dialogue:
+      - "I forge gear that keeps people alive. What are you after?"
+      - "Feel that weight—balanced, dependable. Worth every coin."
+
+  - name: Apothecary Liora
+    role: apothecary
+    disposition: friendly
+    merchant: true
+    class: cleric
+    level: 2
+    gold: 90
+    inventory:
+      - name: healing draught
+        type: consumable
+        quantity: 3
+        description: A sweet, herbal tonic that knits flesh.
+        properties:
+          healing: "2d4+2"
+      - name: smoke vial
+        type: consumable
+        quantity: 1
+        description: A gray vial that bursts into obscuring smoke.
+        properties: {}
+      - name: silvered needle
+        type: misc
+        quantity: 1
+        description: Used for delicate mending of enchanted fabrics.
+        properties: {}
+    dialogue:
+      - "Salves, tinctures, remedies—I have what you need."
+      - "Careful with that one, it tingles before it heals."
+
+  - name: General Goods Peddler Bram
+    role: merchant
+    disposition: friendly
+    merchant: true
+    class: rogue
+    level: 2
+    gold: 75
+    inventory:
+      - name: rope coil
+        type: misc
+        quantity: 1
+        description: 50 feet of sturdy hemp rope.
+        properties: {}
+      - name: torch bundle
+        type: consumable
+        quantity: 3
+        description: Pitch-dipped torches wrapped in twine.
+        properties: {}
+      - name: travel cloak
+        type: armor
+        quantity: 1
+        description: A hooded cloak that sheds rain and mud.
+        properties:
+          ac_bonus: 1
+    dialogue:
+      - "Got odds and ends for every road. What catches your eye?"
+      - "Trade's fair and square. I don't haggle with thieves."

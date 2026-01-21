@@ -1,0 +1,186 @@
+{
+  "spells": [
+    {
+      "name": "Fire Bolt",
+      "level": 0,
+      "school": "evocation",
+      "casting_time": "action",
+      "range": 120,
+      "damage_dice": "1d10",
+      "damage_type": "fire",
+      "description": "Hurl a mote of fire at a creature.",
+      "classes": ["mage"]
+    },
+    {
+      "name": "Ray of Frost",
+      "level": 0,
+      "school": "evocation",
+      "casting_time": "action",
+      "range": 60,
+      "damage_dice": "1d8",
+      "damage_type": "cold",
+      "description": "A frigid beam of blue-white light streaks toward a creature.",
+      "classes": ["mage"]
+    },
+    {
+      "name": "Sacred Flame",
+      "level": 0,
+      "school": "evocation",
+      "casting_time": "action",
+      "range": 60,
+      "damage_dice": "1d8",
+      "damage_type": "radiant",
+      "description": "Flame-like radiance descends on a creature.",
+      "classes": ["cleric"]
+    },
+    {
+      "name": "Magic Missile",
+      "level": 1,
+      "school": "evocation",
+      "casting_time": "action",
+      "range": 120,
+      "damage_dice": "3d4+3",
+      "damage_type": "force",
+      "auto_hit": true,
+      "description": "Three darts of magical force strike targets automatically.",
+      "classes": ["mage"]
+    },
+    {
+      "name": "Burning Hands",
+      "level": 1,
+      "school": "evocation",
+      "casting_time": "action",
+      "range": 15,
+      "damage_dice": "3d6",
+      "damage_type": "fire",
+      "area_effect": true,
+      "description": "A thin sheet of flames shoots forth from your fingertips.",
+      "classes": ["mage"]
+    },
+    {
+      "name": "Cure Wounds",
+      "level": 1,
+      "school": "evocation",
+      "casting_time": "action",
+      "range": 0,
+      "healing_dice": "1d8",
+      "description": "Heal a creature you touch.",
+      "classes": ["cleric", "ranger"]
+    },
+    {
+      "name": "Healing Word",
+      "level": 1,
+      "school": "evocation",
+      "casting_time": "bonus_action",
+      "range": 60,
+      "healing_dice": "1d4",
+      "description": "Speak a word of healing to a creature in range.",
+      "classes": ["cleric"]
+    },
+    {
+      "name": "Shield of Faith",
+      "level": 1,
+      "school": "abjuration",
+      "casting_time": "bonus_action",
+      "range": 60,
+      "duration": 10,
+      "effect": {"ac_bonus": 2},
+      "description": "A shimmering field grants +2 AC to a creature.",
+      "classes": ["cleric"]
+    },
+    {
+      "name": "Thunderwave",
+      "level": 1,
+      "school": "evocation",
+      "casting_time": "action",
+      "range": 15,
+      "damage_dice": "2d8",
+      "damage_type": "thunder",
+      "area_effect": true,
+      "description": "A wave of thunderous force sweeps out from you.",
+      "classes": ["mage"]
+    },
+    {
+      "name": "Scorching Ray",
+      "level": 2,
+      "school": "evocation",
+      "casting_time": "action",
+      "range": 120,
+      "damage_dice": "2d6",
+      "damage_type": "fire",
+      "num_attacks": 3,
+      "description": "Create three rays of fire to hurl at targets.",
+      "classes": ["mage"]
+    },
+    {
+      "name": "Hold Person",
+      "level": 2,
+      "school": "enchantment",
+      "casting_time": "action",
+      "range": 60,
+      "duration": 1,
+      "effect": {"status": "paralyzed"},
+      "save": "wisdom",
+      "description": "Paralyze a humanoid that fails a Wisdom save.",
+      "classes": ["cleric", "mage"]
+    },
+    {
+      "name": "Prayer of Healing",
+      "level": 2,
+      "school": "evocation",
+      "casting_time": "10_minutes",
+      "range": 30,
+      "healing_dice": "2d8",
+      "num_targets": 6,
+      "description": "Heal up to six creatures within range.",
+      "classes": ["cleric"]
+    },
+    {
+      "name": "Fireball",
+      "level": 3,
+      "school": "evocation",
+      "casting_time": "action",
+      "range": 150,
+      "damage_dice": "8d6",
+      "damage_type": "fire",
+      "area_effect": true,
+      "save": "dexterity",
+      "description": "A bright streak explodes into a sphere of fire.",
+      "classes": ["mage"]
+    },
+    {
+      "name": "Lightning Bolt",
+      "level": 3,
+      "school": "evocation",
+      "casting_time": "action",
+      "range": 100,
+      "damage_dice": "8d6",
+      "damage_type": "lightning",
+      "area_effect": true,
+      "save": "dexterity",
+      "description": "A stroke of lightning blasts out in a line.",
+      "classes": ["mage"]
+    },
+    {
+      "name": "Mass Healing Word",
+      "level": 3,
+      "school": "evocation",
+      "casting_time": "bonus_action",
+      "range": 60,
+      "healing_dice": "1d4",
+      "num_targets": 6,
+      "description": "Heal up to six creatures within range.",
+      "classes": ["cleric"]
+    },
+    {
+      "name": "Revivify",
+      "level": 3,
+      "school": "necromancy",
+      "casting_time": "action",
+      "range": 0,
+      "effect": {"revive": true, "hp": 1},
+      "description": "Return a creature that died within the last minute to life with 1 HP.",
+      "classes": ["cleric"]
+    }
+  ]
+}

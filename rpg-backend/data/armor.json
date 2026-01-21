@@ -1,0 +1,134 @@
+{
+  "armor": [
+    {
+      "name": "Padded",
+      "category": "light",
+      "cost_gp": 5,
+      "cost_display": "5 gp",
+      "base_ac": 11,
+      "max_dex_bonus": null,
+      "weight": 8.0,
+      "stealth_disadvantage": true
+    },
+    {
+      "name": "Leather",
+      "category": "light",
+      "cost_gp": 10,
+      "cost_display": "10 gp",
+      "base_ac": 11,
+      "max_dex_bonus": null,
+      "weight": 10.0,
+      "stealth_disadvantage": false
+    },
+    {
+      "name": "Studded Leather",
+      "category": "light",
+      "cost_gp": 45,
+      "cost_display": "45 gp",
+      "base_ac": 12,
+      "max_dex_bonus": null,
+      "weight": 13.0,
+      "stealth_disadvantage": false
+    },
+    {
+      "name": "Hide",
+      "category": "medium",
+      "cost_gp": 10,
+      "cost_display": "10 gp",
+      "base_ac": 12,
+      "max_dex_bonus": 2,
+      "weight": 12.0,
+      "stealth_disadvantage": false
+    },
+    {
+      "name": "Chain Shirt",
+      "category": "medium",
+      "cost_gp": 50,
+      "cost_display": "50 gp",
+      "base_ac": 13,
+      "max_dex_bonus": 2,
+      "weight": 20.0,
+      "stealth_disadvantage": false
+    },
+    {
+      "name": "Scale Mail",
+      "category": "medium",
+      "cost_gp": 50,
+      "cost_display": "50 gp",
+      "base_ac": 14,
+      "max_dex_bonus": 2,
+      "weight": 45.0,
+      "stealth_disadvantage": true
+    },
+    {
+      "name": "Breastplate",
+      "category": "medium",
+      "cost_gp": 400,
+      "cost_display": "400 gp",
+      "base_ac": 14,
+      "max_dex_bonus": 2,
+      "weight": 20.0,
+      "stealth_disadvantage": false
+    },
+    {
+      "name": "Half Plate",
+      "category": "medium",
+      "cost_gp": 750,
+      "cost_display": "750 gp",
+      "base_ac": 15,
+      "max_dex_bonus": 2,
+      "weight": 40.0,
+      "stealth_disadvantage": true
+    },
+    {
+      "name": "Ring Mail",
+      "category": "heavy",
+      "cost_gp": 30,
+      "cost_display": "30 gp",
+      "base_ac": 14,
+      "max_dex_bonus": 0,
+      "weight": 40.0,
+      "stealth_disadvantage": true
+    },
+    {
+      "name": "Chain Mail",
+      "category": "heavy",
+      "cost_gp": 75,
+      "cost_display": "75 gp",
+      "base_ac": 16,
+      "max_dex_bonus": 0,
+      "weight": 55.0,
+      "stealth_disadvantage": true
+    },
+    {
+      "name": "Splint",
+      "category": "heavy",
+      "cost_gp": 200,
+      "cost_display": "200 gp",
+      "base_ac": 17,
+      "max_dex_bonus": 0,
+      "weight": 60.0,
+      "stealth_disadvantage": true
+    },
+    {
+      "name": "Plate",
+      "category": "heavy",
+      "cost_gp": 1500,
+      "cost_display": "1,500 gp",
+      "base_ac": 18,
+      "max_dex_bonus": 0,
+      "weight": 65.0,
+      "stealth_disadvantage": true
+    },
+    {
+      "name": "Shield",
+      "category": "shield",
+      "cost_gp": 10,
+      "cost_display": "10 gp",
+      "base_ac": 2,
+      "max_dex_bonus": null,
+      "weight": 6.0,
+      "stealth_disadvantage": false
+    }
+  ]
+}

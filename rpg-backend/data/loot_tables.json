@@ -1,0 +1,227 @@
+[
+  {
+    "id": "goblin_basic",
+    "name": "Goblin Loot",
+    "description": "Basic loot from defeating goblins",
+    "gold_range": [1, 10],
+    "items": [
+      {"item_name": "Shortbow", "weight": 3, "quantity": 1},
+      {"item_name": "Scimitar", "weight": 3, "quantity": 1},
+      {"item_name": "Dagger", "weight": 5, "quantity": 1}
+    ],
+    "guaranteed_drops": [],
+    "drop_count": {"min": 0, "max": 2}
+  },
+  {
+    "id": "skeleton_basic",
+    "name": "Skeleton Loot",
+    "description": "Remains from defeating skeletons",
+    "gold_range": [0, 5],
+    "items": [
+      {"item_name": "Shortsword", "weight": 4, "quantity": 1},
+      {"item_name": "Shortbow", "weight": 3, "quantity": 1},
+      {"item_name": "Leather Armor", "weight": 1, "quantity": 1}
+    ],
+    "guaranteed_drops": [],
+    "drop_count": {"min": 0, "max": 1}
+  },
+  {
+    "id": "zombie_basic",
+    "name": "Zombie Loot",
+    "description": "Scraps from defeated zombies",
+    "gold_range": [0, 3],
+    "items": [
+      {"item_name": "Club", "weight": 5, "quantity": 1},
+      {"item_name": "Padded Armor", "weight": 2, "quantity": 1}
+    ],
+    "guaranteed_drops": [],
+    "drop_count": {"min": 0, "max": 1}
+  },
+  {
+    "id": "orc_warrior",
+    "name": "Orc Warrior Loot",
+    "description": "Spoils from orc warriors",
+    "gold_range": [5, 25],
+    "items": [
+      {"item_name": "Greataxe", "weight": 4, "quantity": 1},
+      {"item_name": "Javelin", "weight": 5, "quantity": 2},
+      {"item_name": "Hide Armor", "weight": 2, "quantity": 1},
+      {"item_name": "Healing Potion", "weight": 1, "quantity": 1}
+    ],
+    "guaranteed_drops": [],
+    "drop_count": {"min": 1, "max": 2}
+  },
+  {
+    "id": "bugbear_chief",
+    "name": "Bugbear Chieftain Loot",
+    "description": "Valuable items from bugbear leaders",
+    "gold_range": [20, 50],
+    "items": [
+      {"item_name": "Morningstar", "weight": 3, "quantity": 1},
+      {"item_name": "Chain Shirt", "weight": 2, "quantity": 1},
+      {"item_name": "Healing Potion", "weight": 3, "quantity": 1},
+      {"item_name": "Greater Healing Potion", "weight": 1, "quantity": 1}
+    ],
+    "guaranteed_drops": [],
+    "drop_count": {"min": 1, "max": 3}
+  },
+  {
+    "id": "ogre_brute",
+    "name": "Ogre Loot",
+    "description": "Heavy loot from ogres",
+    "gold_range": [10, 40],
+    "items": [
+      {"item_name": "Greatclub", "weight": 5, "quantity": 1},
+      {"item_name": "Javelin", "weight": 4, "quantity": 3},
+      {"item_name": "Healing Potion", "weight": 2, "quantity": 1}
+    ],
+    "guaranteed_drops": [],
+    "drop_count": {"min": 1, "max": 2}
+  },
+  {
+    "id": "bandit_basic",
+    "name": "Bandit Loot",
+    "description": "Stolen goods from bandits",
+    "gold_range": [5, 20],
+    "items": [
+      {"item_name": "Scimitar", "weight": 4, "quantity": 1},
+      {"item_name": "Light Crossbow", "weight": 3, "quantity": 1},
+      {"item_name": "Leather Armor", "weight": 2, "quantity": 1},
+      {"item_name": "Dagger", "weight": 5, "quantity": 1}
+    ],
+    "guaranteed_drops": [],
+    "drop_count": {"min": 1, "max": 2}
+  },
+  {
+    "id": "bandit_captain",
+    "name": "Bandit Captain Loot",
+    "description": "Leader's personal effects",
+    "gold_range": [30, 75],
+    "items": [
+      {"item_name": "Rapier", "weight": 3, "quantity": 1},
+      {"item_name": "Studded Leather Armor", "weight": 2, "quantity": 1},
+      {"item_name": "Dagger", "weight": 4, "quantity": 2},
+      {"item_name": "Greater Healing Potion", "weight": 2, "quantity": 1},
+      {"item_name": "Potion of Strength", "weight": 1, "quantity": 1}
+    ],
+    "guaranteed_drops": [
+      {"item_name": "Healing Potion", "quantity": 1}
+    ],
+    "drop_count": {"min": 2, "max": 3}
+  },
+  {
+    "id": "wolf_beast",
+    "name": "Wolf Remains",
+    "description": "Salvageable parts from wolves",
+    "gold_range": [0, 0],
+    "items": [],
+    "guaranteed_drops": [],
+    "drop_count": {"min": 0, "max": 0}
+  },
+  {
+    "id": "giant_spider",
+    "name": "Giant Spider Remains",
+    "description": "Valuable spider silk and venom",
+    "gold_range": [0, 5],
+    "items": [
+      {"item_name": "Antidote", "weight": 3, "quantity": 1}
+    ],
+    "guaranteed_drops": [],
+    "drop_count": {"min": 0, "max": 1}
+  },
+  {
+    "id": "ghoul_undead",
+    "name": "Ghoul Remains",
+    "description": "Trinkets from ghoul victims",
+    "gold_range": [5, 15],
+    "items": [
+      {"item_name": "Dagger", "weight": 3, "quantity": 1},
+      {"item_name": "Holy Water", "weight": 2, "quantity": 1}
+    ],
+    "guaranteed_drops": [],
+    "drop_count": {"min": 0, "max": 1}
+  },
+  {
+    "id": "troll_giant",
+    "name": "Troll Hoard",
+    "description": "Accumulated troll treasure",
+    "gold_range": [50, 150],
+    "items": [
+      {"item_name": "Greatsword", "weight": 2, "quantity": 1},
+      {"item_name": "Greater Healing Potion", "weight": 3, "quantity": 1},
+      {"item_name": "Superior Healing Potion", "weight": 1, "quantity": 1},
+      {"item_name": "Alchemist's Fire", "weight": 2, "quantity": 2}
+    ],
+    "guaranteed_drops": [
+      {"item_name": "Healing Potion", "quantity": 2}
+    ],
+    "drop_count": {"min": 2, "max": 4}
+  },
+  {
+    "id": "young_dragon",
+    "name": "Young Dragon Hoard",
+    "description": "A young dragon's growing treasure",
+    "gold_range": [200, 500],
+    "items": [
+      {"item_name": "Greatsword", "weight": 2, "quantity": 1},
+      {"item_name": "Plate Armor", "weight": 1, "quantity": 1},
+      {"item_name": "Superior Healing Potion", "weight": 3, "quantity": 1},
+      {"item_name": "Supreme Healing Potion", "weight": 1, "quantity": 1},
+      {"item_name": "Potion of Invisibility", "weight": 1, "quantity": 1}
+    ],
+    "guaranteed_drops": [
+      {"item_name": "Greater Healing Potion", "quantity": 2}
+    ],
+    "drop_count": {"min": 3, "max": 5}
+  },
+  {
+    "id": "adult_dragon",
+    "name": "Adult Dragon Hoard",
+    "description": "A legendary dragon's treasure vault",
+    "gold_range": [1000, 3000],
+    "items": [
+      {"item_name": "Plate Armor", "weight": 2, "quantity": 1},
+      {"item_name": "Greatsword", "weight": 2, "quantity": 1},
+      {"item_name": "Longbow", "weight": 2, "quantity": 1},
+      {"item_name": "Supreme Healing Potion", "weight": 3, "quantity": 2},
+      {"item_name": "Potion of Speed", "weight": 2, "quantity": 1},
+      {"item_name": "Potion of Invisibility", "weight": 2, "quantity": 1}
+    ],
+    "guaranteed_drops": [
+      {"item_name": "Superior Healing Potion", "quantity": 3},
+      {"item_name": "Greater Healing Potion", "quantity": 2}
+    ],
+    "drop_count": {"min": 4, "max": 6}
+  },
+  {
+    "id": "treasure_chest_common",
+    "name": "Common Treasure Chest",
+    "description": "A simple wooden chest",
+    "gold_range": [10, 50],
+    "items": [
+      {"item_name": "Healing Potion", "weight": 5, "quantity": 1},
+      {"item_name": "Dagger", "weight": 3, "quantity": 1},
+      {"item_name": "Light Crossbow", "weight": 2, "quantity": 1},
+      {"item_name": "Antidote", "weight": 2, "quantity": 1}
+    ],
+    "guaranteed_drops": [],
+    "drop_count": {"min": 1, "max": 2}
+  },
+  {
+    "id": "treasure_chest_rare",
+    "name": "Rare Treasure Chest",
+    "description": "An ornate chest with a sturdy lock",
+    "gold_range": [50, 200],
+    "items": [
+      {"item_name": "Greater Healing Potion", "weight": 4, "quantity": 1},
+      {"item_name": "Rapier", "weight": 2, "quantity": 1},
+      {"item_name": "Chain Mail", "weight": 2, "quantity": 1},
+      {"item_name": "Potion of Strength", "weight": 2, "quantity": 1},
+      {"item_name": "Potion of Speed", "weight": 1, "quantity": 1}
+    ],
+    "guaranteed_drops": [
+      {"item_name": "Healing Potion", "quantity": 1}
+    ],
+    "drop_count": {"min": 2, "max": 3}
+  }
+]

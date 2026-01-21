@@ -1,0 +1,110 @@
+{
+  "consumables": [
+    {
+      "name": "Healing Potion",
+      "rarity": "common",
+      "cost_gp": 50,
+      "weight": 0.5,
+      "effect_type": "heal",
+      "healing_dice": "2d4+2",
+      "description": "Regain hit points when you drink this potion."
+    },
+    {
+      "name": "Greater Healing Potion",
+      "rarity": "uncommon",
+      "cost_gp": 100,
+      "weight": 0.5,
+      "effect_type": "heal",
+      "healing_dice": "4d4+4",
+      "description": "Regain more hit points when you drink this potion."
+    },
+    {
+      "name": "Superior Healing Potion",
+      "rarity": "rare",
+      "cost_gp": 500,
+      "weight": 0.5,
+      "effect_type": "heal",
+      "healing_dice": "8d4+8",
+      "description": "Regain significant hit points when you drink this potion."
+    },
+    {
+      "name": "Supreme Healing Potion",
+      "rarity": "epic",
+      "cost_gp": 5000,
+      "weight": 0.5,
+      "effect_type": "heal",
+      "healing_dice": "10d4+20",
+      "description": "Regain massive hit points when you drink this potion."
+    },
+    {
+      "name": "Antidote",
+      "rarity": "common",
+      "cost_gp": 50,
+      "weight": 0.1,
+      "effect_type": "cure",
+      "cures": ["poisoned"],
+      "description": "Cures the poisoned condition."
+    },
+    {
+      "name": "Potion of Strength",
+      "rarity": "uncommon",
+      "cost_gp": 200,
+      "weight": 0.5,
+      "effect_type": "buff",
+      "stat_bonus": {"strength": 4},
+      "duration": 10,
+      "description": "Gain +4 Strength for 10 rounds."
+    },
+    {
+      "name": "Potion of Speed",
+      "rarity": "rare",
+      "cost_gp": 400,
+      "weight": 0.5,
+      "effect_type": "buff",
+      "grants_status": "hasted",
+      "duration": 10,
+      "description": "Gain extra action for 10 rounds."
+    },
+    {
+      "name": "Potion of Invisibility",
+      "rarity": "rare",
+      "cost_gp": 500,
+      "weight": 0.5,
+      "effect_type": "buff",
+      "grants_status": "invisible",
+      "duration": 10,
+      "description": "Become invisible for 10 rounds."
+    },
+    {
+      "name": "Alchemist's Fire",
+      "rarity": "common",
+      "cost_gp": 50,
+      "weight": 1.0,
+      "effect_type": "damage",
+      "damage_dice": "1d4",
+      "damage_type": "fire",
+      "description": "Throw at a creature to deal fire damage."
+    },
+    {
+      "name": "Acid Vial",
+      "rarity": "common",
+      "cost_gp": 25,
+      "weight": 1.0,
+      "effect_type": "damage",
+      "damage_dice": "2d6",
+      "damage_type": "acid",
+      "description": "Throw at a creature to deal acid damage."
+    },
+    {
+      "name": "Holy Water",
+      "rarity": "common",
+      "cost_gp": 25,
+      "weight": 1.0,
+      "effect_type": "damage",
+      "damage_dice": "2d6",
+      "damage_type": "radiant",
+      "target_type": "undead",
+      "description": "Throw at an undead creature to deal radiant damage."
+    }
+  ]
+}

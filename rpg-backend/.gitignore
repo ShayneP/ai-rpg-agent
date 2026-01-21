@@ -1,0 +1,27 @@
+.env
+.env.local
+
+# Python virtualenvs
+.venv/
+venv/
+env/
+ENV/
+
+# Cache / build artifacts
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.cache/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Node / frontend caches
+node_modules/
+.parcel-cache/
+.next/
+dist/
+build/

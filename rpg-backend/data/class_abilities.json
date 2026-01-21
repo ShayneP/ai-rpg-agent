@@ -1,0 +1,138 @@
+{
+  "class_abilities": [
+    {
+      "id": "second_wind",
+      "name": "Second Wind",
+      "class": "warrior",
+      "description": "Regain HP equal to 1d10 + level. Once per short rest.",
+      "effect_type": "heal_self",
+      "healing_dice": "1d10",
+      "adds_level": true,
+      "uses_per_rest": "short",
+      "max_uses": 1
+    },
+    {
+      "id": "action_surge",
+      "name": "Action Surge",
+      "class": "warrior",
+      "description": "Take an additional action this turn. Once per short rest.",
+      "effect_type": "extra_action",
+      "uses_per_rest": "short",
+      "max_uses": 1,
+      "min_level": 2
+    },
+    {
+      "id": "sneak_attack",
+      "name": "Sneak Attack",
+      "class": "rogue",
+      "description": "Deal extra damage when you have advantage or ally is adjacent. Scales with level.",
+      "effect_type": "bonus_damage",
+      "damage_dice": "1d6",
+      "scales_with_level": true,
+      "requires_advantage": true,
+      "uses_per_turn": 1
+    },
+    {
+      "id": "cunning_action",
+      "name": "Cunning Action",
+      "class": "rogue",
+      "description": "Use a bonus action to Dash, Disengage, or Hide.",
+      "effect_type": "bonus_action",
+      "options": ["dash", "disengage", "hide"],
+      "min_level": 2
+    },
+    {
+      "id": "evasion",
+      "name": "Evasion",
+      "class": "rogue",
+      "description": "Take no damage on successful DEX save, half on failure.",
+      "effect_type": "passive",
+      "min_level": 7
+    },
+    {
+      "id": "divine_intervention",
+      "name": "Divine Intervention",
+      "class": "cleric",
+      "description": "Call upon your deity for aid. Chance equal to level %. Once per long rest.",
+      "effect_type": "random_powerful",
+      "uses_per_rest": "long",
+      "max_uses": 1,
+      "min_level": 10
+    },
+    {
+      "id": "channel_divinity_heal",
+      "name": "Channel Divinity: Preserve Life",
+      "class": "cleric",
+      "description": "Heal allies within range for HP equal to 5x cleric level, distributed as you choose.",
+      "effect_type": "heal_allies",
+      "healing_multiplier": 5,
+      "uses_per_rest": "short",
+      "max_uses": 1,
+      "min_level": 2
+    },
+    {
+      "id": "turn_undead",
+      "name": "Turn Undead",
+      "class": "cleric",
+      "description": "Undead must make WIS save or flee for 1 minute.",
+      "effect_type": "area_effect",
+      "target_type": "undead",
+      "save": "wisdom",
+      "status_applied": "frightened",
+      "uses_per_rest": "short",
+      "max_uses": 1,
+      "min_level": 2
+    },
+    {
+      "id": "arcane_recovery",
+      "name": "Arcane Recovery",
+      "class": "mage",
+      "description": "Recover spell slots with combined level up to half your wizard level (rounded up). Once per day.",
+      "effect_type": "recover_slots",
+      "uses_per_rest": "long",
+      "max_uses": 1
+    },
+    {
+      "id": "spell_mastery",
+      "name": "Spell Mastery",
+      "class": "mage",
+      "description": "Cast a 1st or 2nd level spell at will without using a slot.",
+      "effect_type": "passive",
+      "min_level": 18
+    },
+    {
+      "id": "hunters_mark",
+      "name": "Hunter's Mark",
+      "class": "ranger",
+      "description": "Mark a target for +1d6 damage on your attacks. Concentration, lasts 1 hour.",
+      "effect_type": "mark_target",
+      "bonus_damage_dice": "1d6",
+      "duration": 10,
+      "uses_per_rest": "long",
+      "max_uses": 2
+    },
+    {
+      "id": "natural_explorer",
+      "name": "Natural Explorer",
+      "class": "ranger",
+      "description": "Advantage on initiative. Cannot be surprised while conscious.",
+      "effect_type": "passive"
+    },
+    {
+      "id": "favored_enemy",
+      "name": "Favored Enemy",
+      "class": "ranger",
+      "description": "+2 damage against your chosen enemy type.",
+      "effect_type": "passive",
+      "bonus_damage": 2
+    },
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "class": "ranger",
+      "description": "Make two attacks instead of one when taking the Attack action.",
+      "effect_type": "extra_attack",
+      "min_level": 5
+    }
+  ]
+}

@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabletop RPG Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Tabletop RPG Manager</h1>
+        <div class="connection-status" id="connectionStatus">
+            <span class="status-dot"></span>
+            <span class="status-text">Checking API...</span>
+        </div>
+    </header>
+
+    <nav class="tabs">
+        <button class="tab active" data-tab="characters">Characters</button>
+        <button class="tab" data-tab="inventory">Inventory</button>
+        <button class="tab" data-tab="location">Location</button>
+        <button class="tab" data-tab="quests">Quests</button>
+        <button class="tab" data-tab="combat">Combat</button>
+        <button class="tab" data-tab="scenarios">Scenarios</button>
+        <button class="tab" data-tab="reference">Reference</button>
+        <button class="tab" data-tab="events">Events</button>
+    </nav>
+
+    <main>
+        <!-- Characters Tab -->
+        <section id="characters" class="tab-content active">
+            <div class="panel-grid">
+                <div class="panel">
+                    <h2>Create Character</h2>
+                    <form id="createCharacterForm">
+                        <div class="form-group">
+                            <label for="charName">Name</label>
+                            <input type="text" id="charName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="charClass">Class</label>
+                            <select id="charClass" required>
+                                <option value="warrior">Warrior (+2 STR, +1 CON, +10 HP)</option>
+                                <option value="mage">Mage (+2 INT, +1 WIS)</option>
+                                <option value="rogue">Rogue (+2 DEX, +1 CHA, +2 Init)</option>
+                                <option value="cleric">Cleric (+2 WIS, +1 CON)</option>
+                                <option value="ranger">Ranger (+1 DEX, +1 WIS, +1 STR)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="charType">Type</label>
+                            <select id="charType">
+                                <option value="player">Player</option>
+                                <option value="npc">NPC</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Character</button>
+                    </form>
+                </div>
+
+                <div class="panel">
+                    <h2>Characters List</h2>
+                    <div class="filter-row">
+                        <select id="filterCharType">
+                            <option value="">All Types</option>
+                            <option value="player">Players</option>
+                            <option value="npc">NPCs</option>
+                        </select>
+                        <button class="btn btn-secondary" onclick="loadCharacters()">Refresh</button>
+                    </div>
+                    <div id="charactersList" class="list-container"></div>
+                </div>
+
+                <div class="panel wide">
+                    <h2>Character Details</h2>
+                    <div id="characterDetails" class="details-view">
+                        <p class="placeholder">Select a character to view details</p>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>Admin Panel</h2>
+                    <div class="form-group">
+                        <label for="adminCharSelect">Character</label>
+                        <select id="adminCharSelect">
+                            <option value="">-- Select Character --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="adminXpAmount">XP Amount</label>
+                        <input type="number" id="adminXpAmount" value="100" min="1">
+                    </div>
+                    <div class="admin-quick-buttons">
+                        <button class="btn btn-small" onclick="setAdminXp(50)">+50</button>
+                        <button class="btn btn-small" onclick="setAdminXp(100)">+100</button>
+                        <button class="btn btn-small" onclick="setAdminXp(300)">+300</button>
+                        <button class="btn btn-small" onclick="setAdminXp(500)">+500</button>
+                        <button class="btn btn-small" onclick="setAdminXp(1000)">+1000</button>
+                    </div>
+                    <button class="btn btn-primary" onclick="addExperience()" style="margin-top: 1rem; width: 100%;">Add Experience</button>
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <label for="adminGoldAmount">Gold Amount</label>
+                        <input type="number" id="adminGoldAmount" value="100" min="1">
+                    </div>
+                    <button class="btn btn-primary" onclick="addGold()" style="width: 100%;">Add Gold</button>
+                    <hr style="margin: 1.5rem 0; border-color: #444;">
+                    <h3 style="color: #e74c3c; margin-bottom: 0.5rem;">Danger Zone</h3>
+                    <button class="btn btn-danger" onclick="resetDatabase()" style="width: 100%; background: #e74c3c;">Reset Entire Database</button>
+                    <p style="font-size: 0.75rem; color: #888; margin-top: 0.5rem;">Deletes ALL data and resets IDs to 1</p>
+                </div>
+
+                <div class="panel">
+                    <h2>Create Monster</h2>
+                    <div class="form-group">
+                        <label for="monsterSelect">Monster Template</label>
+                        <select id="monsterSelect">
+                            <option value="">-- Select Monster --</option>
+                        </select>
+                    </div>
+                    <div id="monsterPreview" class="monster-preview" style="display: none;">
+                        <div class="monster-stats"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="monsterName">Custom Name (optional)</label>
+                        <input type="text" id="monsterName" placeholder="Leave blank for default">
+                    </div>
+                    <button class="btn btn-primary" onclick="createMonster()" style="width: 100%;">Create Monster NPC</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inventory Tab -->
+        <section id="inventory" class="tab-content">
+            <div class="panel-grid">
+                <div class="panel">
+                    <h2>Create Item</h2>
+                    <form id="createItemForm">
+                        <div class="form-group">
+                            <label for="itemName">Name</label>
+                            <input type="text" id="itemName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemType">Type</label>
+                            <select id="itemType" required>
+                                <option value="weapon">Weapon</option>
+                                <option value="armor">Armor</option>
+                                <option value="consumable">Consumable</option>
+                                <option value="quest">Quest Item</option>
+                                <option value="misc">Misc</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemRarity">Rarity</label>
+                            <select id="itemRarity">
+                                <option value="common">Common</option>
+                                <option value="uncommon">Uncommon</option>
+                                <option value="rare">Rare</option>
+                                <option value="epic">Epic</option>
+                                <option value="legendary">Legendary</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="itemWeight">Weight</label>
+                                <input type="number" id="itemWeight" value="0" min="0" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label for="itemValue">Value (Gold)</label>
+                                <input type="number" id="itemValue" value="0" min="0">
+                            </div>
+                        </div>
+
+                        <!-- Weapon Properties -->
+                        <div id="weaponProps" class="type-props">
+                            <h4>Weapon Properties</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="weaponDamageDice">Damage Dice</label>
+                                    <select id="weaponDamageDice">
+                                        <option value="1d4">1d4</option>
+                                        <option value="1d6" selected>1d6</option>
+                                        <option value="1d8">1d8</option>
+                                        <option value="1d10">1d10</option>
+                                        <option value="1d12">1d12</option>
+                                        <option value="2d6">2d6</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="weaponHitBonus">Hit Bonus</label>
+                                    <input type="number" id="weaponHitBonus" value="0" min="0" max="10">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Armor Properties -->
+                        <div id="armorProps" class="type-props" style="display:none;">
+                            <h4>Armor Properties</h4>
+                            <div class="form-group">
+                                <label for="armorBonus">AC Bonus</label>
+                                <input type="number" id="armorBonus" value="1" min="1" max="20">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="itemDesc">Description</label>
+                            <textarea id="itemDesc" rows="2"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Item</button>
+                    </form>
+                </div>
+
+                <div class="panel">
+                    <h2>Items Database</h2>
+                    <button class="btn btn-secondary" onclick="loadItems()">Refresh</button>
+                    <div id="itemsList" class="list-container"></div>
+                </div>
+
+                <div class="panel wide">
+                    <h2>Character Inventory</h2>
+                    <div class="form-group">
+                        <label for="invCharSelect">Select Character</label>
+                        <select id="invCharSelect" onchange="loadCharacterInventory()">
+                            <option value="">-- Select Character --</option>
+                        </select>
+                    </div>
+                    <div id="inventoryDisplay" class="inventory-grid"></div>
+
+                    <div id="addItemSection" style="display:none;">
+                        <h3>Add Item to Inventory</h3>
+                        <div class="form-row">
+                            <select id="addItemSelect">
+                                <option value="">-- Select Item --</option>
+                            </select>
+                            <input type="number" id="addItemQty" value="1" min="1" style="width: 60px;">
+                            <button class="btn btn-primary" onclick="addItemToInventory()">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Tab -->
+        <section id="location" class="tab-content">
+            <div class="panel-grid">
+                <div class="panel">
+                    <h2>Create Zone</h2>
+                    <form id="createZoneForm">
+                        <div class="form-group">
+                            <label for="zoneName">Name</label>
+                            <input type="text" id="zoneName" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="zoneWidth">Width</label>
+                                <input type="number" id="zoneWidth" value="20" min="1" max="100">
+                            </div>
+                            <div class="form-group">
+                                <label for="zoneHeight">Height</label>
+                                <input type="number" id="zoneHeight" value="20" min="1" max="100">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="zoneDesc">Description</label>
+                            <textarea id="zoneDesc" rows="2"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Zone</button>
+                    </form>
+                </div>
+
+                <div class="panel">
+                    <h2>Zones</h2>
+                    <button class="btn btn-secondary" onclick="loadZones()">Refresh</button>
+                    <div id="zonesList" class="list-container"></div>
+                </div>
+
+                <div class="panel wide">
+                    <h2>Zone Map</h2>
+                    <div class="form-group">
+                        <label for="mapZoneSelect">Select Zone</label>
+                        <select id="mapZoneSelect" onchange="loadZoneMap()">
+                            <option value="">-- Select Zone --</option>
+                        </select>
+                    </div>
+                    <div id="terrainLegend" class="terrain-legend"></div>
+                    <div id="zoneMap" class="zone-map"></div>
+                    <div id="locationInfo" class="location-info"></div>
+                </div>
+
+                <div class="panel">
+                    <h2>Move Character</h2>
+                    <div class="form-group">
+                        <label for="moveCharSelect">Character</label>
+                        <select id="moveCharSelect">
+                            <option value="">-- Select Character --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="moveZoneSelect">Zone</label>
+                        <select id="moveZoneSelect">
+                            <option value="">-- Select Zone --</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="moveX">X</label>
+                            <input type="number" id="moveX" value="0" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="moveY">Y</label>
+                            <input type="number" id="moveY" value="0" min="0">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="moveCharacter()">Move</button>
+                    <div id="moveResult" class="move-result"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quests Tab -->
+        <section id="quests" class="tab-content">
+            <div class="panel-grid">
+                <div class="panel">
+                    <h2>Create Quest</h2>
+                    <form id="createQuestForm">
+                        <div class="form-group">
+                            <label for="questTitle">Title</label>
+                            <input type="text" id="questTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="questDesc">Description</label>
+                            <textarea id="questDesc" rows="2"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="questLevel">Level Req</label>
+                                <input type="number" id="questLevel" value="1" min="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="questXP">XP Reward</label>
+                                <input type="number" id="questXP" value="100" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="questGold">Gold</label>
+                                <input type="number" id="questGold" value="50" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Objectives</label>
+                            <div id="objectivesList">
+                                <div class="objective-row">
+                                    <input type="text" placeholder="Objective description" class="obj-desc">
+                                    <input type="number" value="1" min="1" class="obj-count" style="width:60px;">
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-small" onclick="addObjectiveRow()">+ Add Objective</button>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Quest</button>
+                    </form>
+                </div>
+
+                <div class="panel">
+                    <h2>Available Quests</h2>
+                    <button class="btn btn-secondary" onclick="loadQuests()">Refresh</button>
+                    <div id="questsList" class="list-container"></div>
+                </div>
+
+                <div class="panel wide">
+                    <h2>Character Quests</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="questCharSelect">Character</label>
+                            <select id="questCharSelect" onchange="loadCharacterQuests()">
+                                <option value="">-- Select Character --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="characterQuestsList"></div>
+                </div>
+
+                <div class="panel">
+                    <h2>Quest Actions</h2>
+                    <div id="questActions">
+                        <p class="placeholder">Select a quest to see actions</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Combat Tab -->
+        <section id="combat" class="tab-content">
+            <div class="panel-grid">
+                <div class="panel">
+                    <h2>Start Combat</h2>
+                    <form id="startCombatForm">
+                        <div class="form-group">
+                            <label for="combatZoneSelect">Zone (for terrain/range)</label>
+                            <select id="combatZoneSelect">
+                                <option value="">-- No Zone --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="initiativeTypeSelect">Initiative Type</label>
+                            <select id="initiativeTypeSelect">
+                                <option value="individual">Individual (Each combatant rolls)</option>
+                                <option value="group">Group (One roll per team)</option>
+                                <option value="side">Side (Teams alternate)</option>
+                                <option value="reroll">Re-roll (New initiative each round)</option>
+                            </select>
+                        </div>
+                        <h3>Team 1 (Players)</h3>
+                        <div id="team1Select" class="team-select"></div>
+
+                        <h3>Team 2 (Enemies)</h3>
+                        <div id="team2Select" class="team-select"></div>
+
+                        <button type="submit" class="btn btn-primary">Start Combat</button>
+                    </form>
+                </div>
+
+                <div class="panel wide">
+                    <h2>Combat Arena</h2>
+                    <div id="combatStatus" class="combat-status">
+                        <p class="placeholder">No active combat</p>
+                    </div>
+                    <div id="combatArena" class="combat-arena" style="display:none;">
+                        <div class="combat-info">
+                            <span id="combatRound">Round: 1</span>
+                            <span id="combatTurn">Turn: 1</span>
+                            <span id="combatState">Status: --</span>
+                        </div>
+                        <div class="teams-display">
+                            <div class="team" id="team1Display">
+                                <h3>Team 1</h3>
+                                <div class="combatants"></div>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team" id="team2Display">
+                                <h3>Team 2</h3>
+                                <div class="combatants"></div>
+                            </div>
+                        </div>
+                        <div id="currentTurnInfo" class="current-turn-info"></div>
+                        <div id="playerActions" class="player-actions" style="display:none;">
+                            <h3>Your Turn!</h3>
+                            <div class="action-buttons">
+                                <button class="btn btn-action" onclick="playerAction('attack')">Attack</button>
+                                <button class="btn btn-action" onclick="playerAction('defend')">Defend</button>
+                                <button class="btn btn-action" onclick="playerAction('dodge')">Dodge</button>
+                                <button class="btn btn-action" onclick="playerAction('spell')">Spell</button>
+                                <button class="btn btn-action" onclick="playerAction('ability')">Ability</button>
+                                <button class="btn btn-action" onclick="playerAction('item')">Item</button>
+                                <button class="btn btn-action" onclick="playerAction('flee')">Flee</button>
+                                <button class="btn btn-action" onclick="playerAction('pass')">Pass</button>
+                            </div>
+                            <div id="targetSelect" class="action-select" style="display:none;">
+                                <label>Select Target:</label>
+                                <select id="attackTarget"></select>
+                                <span id="targetDistance" class="target-distance"></span>
+                                <button class="btn btn-primary" onclick="confirmAttack()">Confirm Attack</button>
+                            </div>
+                            <div id="spellSelect" class="action-select" style="display:none;">
+                                <label>Select Spell:</label>
+                                <select id="spellChoice"></select>
+                                <select id="spellTarget"></select>
+                                <button class="btn btn-primary" onclick="confirmSpell()">Cast Spell</button>
+                            </div>
+                            <div id="abilitySelect" class="action-select" style="display:none;">
+                                <label>Select Ability:</label>
+                                <select id="abilityChoice"></select>
+                                <select id="abilityTarget" style="display:none;"></select>
+                                <button class="btn btn-primary" onclick="confirmAbility()">Use Ability</button>
+                            </div>
+                            <div id="itemSelect" class="action-select" style="display:none;">
+                                <label>Select Item:</label>
+                                <select id="itemChoice"></select>
+                                <select id="itemTarget" style="display:none;"></select>
+                                <button class="btn btn-primary" onclick="confirmItem()">Use Item</button>
+                            </div>
+                        </div>
+                        <div class="combat-controls">
+                            <button class="btn btn-primary" id="processBtn" onclick="processCombat()">Process Turns</button>
+                            <button class="btn btn-secondary" id="finishBtn" onclick="finishCombat()" style="display:none;">Finish Combat</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>Combat Log</h2>
+                    <div id="combatLog" class="combat-log"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scenarios Tab -->
+        <section id="scenarios" class="tab-content">
+            <div class="panel-grid">
+                <div class="panel">
+                    <h2>Create Scenario</h2>
+                    <form id="createScenarioForm">
+                        <div class="form-group">
+                            <label for="scenarioTitle">Title</label>
+                            <input type="text" id="scenarioTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="scenarioNarrative">Narrative Text</label>
+                            <textarea id="scenarioNarrative" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Outcomes</label>
+                            <div id="outcomesList">
+                                <div class="outcome-row">
+                                    <input type="text" placeholder="Description" class="outcome-desc">
+                                    <select class="outcome-type">
+                                        <option value="help">Help</option>
+                                        <option value="hurt">Hurt</option>
+                                        <option value="neutral">Neutral</option>
+                                    </select>
+                                    <input type="number" placeholder="HP change" class="outcome-hp" style="width:80px;">
+                                    <input type="number" value="1" min="1" class="outcome-weight" style="width:60px;" title="Weight">
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-small" onclick="addOutcomeRow()">+ Add Outcome</button>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="scenarioRepeatable"> Repeatable
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Scenario</button>
+                    </form>
+                </div>
+
+                <div class="panel">
+                    <h2>Scenarios</h2>
+                    <button class="btn btn-secondary" onclick="loadScenarios()">Refresh</button>
+                    <div id="scenariosList" class="list-container"></div>
+                </div>
+
+                <div class="panel">
+                    <h2>Trigger Scenario</h2>
+                    <div class="form-group">
+                        <label for="triggerScenario">Scenario</label>
+                        <select id="triggerScenario">
+                            <option value="">-- Select Scenario --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="triggerCharacter">Character</label>
+                        <select id="triggerCharacter">
+                            <option value="">-- Select Character --</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="triggerScenario()">Trigger Scenario</button>
+                    <div id="scenarioResult" class="scenario-result"></div>
+                </div>
+
+                <div class="panel">
+                    <h2>Evaluate Scenarios</h2>
+                    <div class="form-group">
+                        <label for="evalCharacter">Character</label>
+                        <select id="evalCharacter">
+                            <option value="">-- Select Character --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="evalTriggerType">Trigger Type (optional)</label>
+                        <select id="evalTriggerType">
+                            <option value="">All Types</option>
+                            <option value="location">Location</option>
+                            <option value="item">Item</option>
+                            <option value="quest">Quest</option>
+                            <option value="health_threshold">Health Threshold</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="evaluateScenarios()">Find Applicable Scenarios</button>
+                    <div id="evalResult" class="eval-result"></div>
+                </div>
+
+                <div class="panel">
+                    <h2>Scenario History</h2>
+                    <div class="form-group">
+                        <label for="historyCharacter">Character</label>
+                        <select id="historyCharacter" onchange="loadScenarioHistory()">
+                            <option value="">-- Select Character --</option>
+                        </select>
+                    </div>
+                    <div id="scenarioHistory" class="list-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reference Tab -->
+        <section id="reference" class="tab-content">
+            <div class="panel-grid">
+                <div class="panel wide">
+                    <h2>Base Weapons</h2>
+                    <div class="form-row" style="margin-bottom: 1rem;">
+                        <div class="form-group">
+                            <label for="weaponCategory">Category</label>
+                            <select id="weaponCategory" onchange="loadBaseWeapons()">
+                                <option value="">All Categories</option>
+                                <option value="simple_melee">Simple Melee</option>
+                                <option value="simple_ranged">Simple Ranged</option>
+                                <option value="martial_melee">Martial Melee</option>
+                                <option value="martial_ranged">Martial Ranged</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="weaponMaxCost">Max Cost (gp)</label>
+                            <input type="number" id="weaponMaxCost" placeholder="Any" min="0" onchange="loadBaseWeapons()">
+                        </div>
+                        <div class="form-group">
+                            <label for="weaponProperty">Property</label>
+                            <select id="weaponProperty" onchange="loadBaseWeapons()">
+                                <option value="">Any</option>
+                                <option value="finesse">Finesse</option>
+                                <option value="thrown">Thrown</option>
+                                <option value="two-handed">Two-Handed</option>
+                                <option value="versatile">Versatile</option>
+                                <option value="reach">Reach</option>
+                                <option value="ammunition">Ammunition</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="weaponSearch">Search</label>
+                            <input type="text" id="weaponSearch" placeholder="Name..." oninput="loadBaseWeapons()">
+                        </div>
+                    </div>
+                    <div id="baseWeaponsList" class="weapons-table-container">
+                        <p class="placeholder">Loading weapons...</p>
+                    </div>
+                </div>
+
+                <div class="panel wide">
+                    <h2>Base Armor</h2>
+                    <div class="form-row" style="margin-bottom: 1rem;">
+                        <div class="form-group">
+                            <label for="armorCategory">Category</label>
+                            <select id="armorCategory" onchange="loadBaseArmor()">
+                                <option value="">All Categories</option>
+                                <option value="light">Light</option>
+                                <option value="medium">Medium</option>
+                                <option value="heavy">Heavy</option>
+                                <option value="shield">Shield</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="armorMaxCost">Max Cost (gp)</label>
+                            <input type="number" id="armorMaxCost" placeholder="Any" min="0" onchange="loadBaseArmor()">
+                        </div>
+                        <div class="form-group">
+                            <label for="armorStealthOk">Stealth OK</label>
+                            <select id="armorStealthOk" onchange="loadBaseArmor()">
+                                <option value="">Any</option>
+                                <option value="true">No Disadvantage</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="armorSearch">Search</label>
+                            <input type="text" id="armorSearch" placeholder="Name..." oninput="loadBaseArmor()">
+                        </div>
+                    </div>
+                    <div id="baseArmorList" class="weapons-table-container">
+                        <p class="placeholder">Loading armor...</p>
+                    </div>
+                </div>
+
+                <div class="panel wide">
+                    <h2>Spells</h2>
+                    <div class="form-row" style="margin-bottom: 1rem;">
+                        <div class="form-group">
+                            <label for="spellLevel">Level</label>
+                            <select id="spellLevel" onchange="loadSpells()">
+                                <option value="">All Levels</option>
+                                <option value="0">Cantrip (0)</option>
+                                <option value="1">Level 1</option>
+                                <option value="2">Level 2</option>
+                                <option value="3">Level 3</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="spellClass">Class</label>
+                            <select id="spellClass" onchange="loadSpells()">
+                                <option value="">All Classes</option>
+                                <option value="mage">Mage</option>
+                                <option value="cleric">Cleric</option>
+                                <option value="ranger">Ranger</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="spellSearch">Search</label>
+                            <input type="text" id="spellSearch" placeholder="Name..." oninput="loadSpells()">
+                        </div>
+                    </div>
+                    <div id="spellsList" class="spells-grid">
+                        <p class="placeholder">Loading spells...</p>
+                    </div>
+                </div>
+
+                <div class="panel wide">
+                    <h2>Consumables</h2>
+                    <div class="form-row" style="margin-bottom: 1rem;">
+                        <div class="form-group">
+                            <label for="consumableType">Effect Type</label>
+                            <select id="consumableType" onchange="loadConsumables()">
+                                <option value="">All Types</option>
+                                <option value="heal">Heal</option>
+                                <option value="damage">Damage</option>
+                                <option value="buff">Buff</option>
+                                <option value="cure">Cure</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="consumableSearch">Search</label>
+                            <input type="text" id="consumableSearch" placeholder="Name..." oninput="loadConsumables()">
+                        </div>
+                    </div>
+                    <div id="consumablesList" class="consumables-grid">
+                        <p class="placeholder">Loading consumables...</p>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>Status Effects</h2>
+                    <div class="form-row" style="margin-bottom: 1rem;">
+                        <div class="form-group">
+                            <label for="effectFilter">Filter</label>
+                            <select id="effectFilter" onchange="loadStatusEffects()">
+                                <option value="">All</option>
+                                <option value="harmful">Harmful</option>
+                                <option value="beneficial">Beneficial</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="statusEffectsList" class="effects-list">
+                        <p class="placeholder">Loading status effects...</p>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>Class Abilities</h2>
+                    <div class="form-row" style="margin-bottom: 1rem;">
+                        <div class="form-group">
+                            <label for="abilityClassFilter">Class</label>
+                            <select id="abilityClassFilter" onchange="loadClassAbilities()">
+                                <option value="">All Classes</option>
+                                <option value="warrior">Warrior</option>
+                                <option value="mage">Mage</option>
+                                <option value="rogue">Rogue</option>
+                                <option value="cleric">Cleric</option>
+                                <option value="ranger">Ranger</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="abilitiesList" class="abilities-list">
+                        <p class="placeholder">Loading abilities...</p>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>Terrain Effects</h2>
+                    <div id="terrainList" class="terrain-list">
+                        <p class="placeholder">Loading terrain...</p>
+                    </div>
+                </div>
+
+                <div class="panel wide">
+                    <h2>Monsters</h2>
+                    <div class="form-row" style="margin-bottom: 1rem;">
+                        <div class="form-group">
+                            <label for="monsterType">Type</label>
+                            <select id="monsterType" onchange="loadMonsters()">
+                                <option value="">All Types</option>
+                                <option value="humanoid">Humanoid</option>
+                                <option value="undead">Undead</option>
+                                <option value="beast">Beast</option>
+                                <option value="giant">Giant</option>
+                                <option value="monstrosity">Monstrosity</option>
+                                <option value="fiend">Fiend</option>
+                                <option value="dragon">Dragon</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="monsterSize">Size</label>
+                            <select id="monsterSize" onchange="loadMonsters()">
+                                <option value="">All Sizes</option>
+                                <option value="tiny">Tiny</option>
+                                <option value="small">Small</option>
+                                <option value="medium">Medium</option>
+                                <option value="large">Large</option>
+                                <option value="huge">Huge</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="monsterMaxCR">Max CR</label>
+                            <select id="monsterMaxCR" onchange="loadMonsters()">
+                                <option value="">Any</option>
+                                <option value="0.25">1/4</option>
+                                <option value="0.5">1/2</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="5">5</option>
+                                <option value="7">7</option>
+                                <option value="14">14</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="monsterSearch">Search</label>
+                            <input type="text" id="monsterSearch" placeholder="Name..." oninput="loadMonsters()">
+                        </div>
+                    </div>
+                    <div id="monstersList" class="monsters-grid">
+                        <p class="placeholder">Loading monsters...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Tab -->
+        <section id="events" class="tab-content">
+            <div class="panel-grid">
+                <div class="panel">
+                    <h2>Log Event</h2>
+                    <form id="logEventForm">
+                        <div class="form-group">
+                            <label for="eventType">Event Type</label>
+                            <select id="eventType" required>
+                                <option value="custom">Custom</option>
+                                <option value="combat_start">Combat Start</option>
+                                <option value="combat_end">Combat End</option>
+                                <option value="character_death">Character Death</option>
+                                <option value="item_acquired">Item Acquired</option>
+                                <option value="item_used">Item Used</option>
+                                <option value="quest_started">Quest Started</option>
+                                <option value="quest_completed">Quest Completed</option>
+                                <option value="level_up">Level Up</option>
+                                <option value="location_change">Location Change</option>
+                                <option value="scenario_triggered">Scenario Triggered</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventCharacter">Character (optional)</label>
+                            <select id="eventCharacter">
+                                <option value="">-- None --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventDescription">Description</label>
+                            <textarea id="eventDescription" rows="2"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Log Event</button>
+                    </form>
+                </div>
+
+                <div class="panel wide">
+                    <h2>Event Log</h2>
+                    <div class="filter-row">
+                        <select id="filterEventType">
+                            <option value="">All Types</option>
+                            <option value="combat_start">Combat Start</option>
+                            <option value="combat_end">Combat End</option>
+                            <option value="character_death">Character Death</option>
+                            <option value="item_acquired">Item Acquired</option>
+                            <option value="item_used">Item Used</option>
+                            <option value="quest_started">Quest Started</option>
+                            <option value="quest_completed">Quest Completed</option>
+                            <option value="level_up">Level Up</option>
+                            <option value="location_change">Location Change</option>
+                            <option value="scenario_triggered">Scenario Triggered</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                        <select id="filterEventCharacter">
+                            <option value="">All Characters</option>
+                        </select>
+                        <button class="btn btn-secondary" onclick="loadEvents()">Refresh</button>
+                    </div>
+                    <div id="eventsList" class="events-list"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast"></div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

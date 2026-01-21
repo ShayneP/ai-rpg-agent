@@ -1,0 +1,116 @@
+{
+  "status_effects": [
+    {
+      "id": "poisoned",
+      "name": "Poisoned",
+      "description": "Take poison damage at the start of each turn. Disadvantage on attack rolls.",
+      "damage_per_turn": "1d4",
+      "damage_type": "poison",
+      "attack_disadvantage": true,
+      "default_duration": 3
+    },
+    {
+      "id": "burning",
+      "name": "Burning",
+      "description": "Take fire damage at the start of each turn.",
+      "damage_per_turn": "1d6",
+      "damage_type": "fire",
+      "default_duration": 2
+    },
+    {
+      "id": "stunned",
+      "name": "Stunned",
+      "description": "Cannot take actions. Attacks against you have advantage.",
+      "skip_turn": true,
+      "attackers_advantage": true,
+      "default_duration": 1
+    },
+    {
+      "id": "paralyzed",
+      "name": "Paralyzed",
+      "description": "Cannot move or take actions. Auto-crit if hit in melee.",
+      "skip_turn": true,
+      "auto_crit_melee": true,
+      "default_duration": 1
+    },
+    {
+      "id": "blinded",
+      "name": "Blinded",
+      "description": "Cannot see. Disadvantage on attack rolls. Attacks against you have advantage.",
+      "attack_disadvantage": true,
+      "attackers_advantage": true,
+      "default_duration": 2
+    },
+    {
+      "id": "frightened",
+      "name": "Frightened",
+      "description": "Disadvantage on ability checks and attack rolls while source of fear is visible.",
+      "attack_disadvantage": true,
+      "default_duration": 3
+    },
+    {
+      "id": "charmed",
+      "name": "Charmed",
+      "description": "Cannot attack the charmer. Charmer has advantage on social checks.",
+      "default_duration": 10
+    },
+    {
+      "id": "slowed",
+      "name": "Slowed",
+      "description": "Speed halved. -2 to AC and Dexterity saves. Cannot take reactions.",
+      "ac_modifier": -2,
+      "default_duration": 3
+    },
+    {
+      "id": "hasted",
+      "name": "Hasted",
+      "description": "Speed doubled. +2 to AC. Additional action each turn.",
+      "ac_modifier": 2,
+      "extra_action": true,
+      "default_duration": 10
+    },
+    {
+      "id": "invisible",
+      "name": "Invisible",
+      "description": "Cannot be seen. Advantage on attack rolls. Attacks against you have disadvantage.",
+      "attack_advantage": true,
+      "attackers_disadvantage": true,
+      "default_duration": 10
+    },
+    {
+      "id": "blessed",
+      "name": "Blessed",
+      "description": "+1d4 bonus to attack rolls and saving throws.",
+      "attack_bonus_dice": "1d4",
+      "default_duration": 10
+    },
+    {
+      "id": "cursed",
+      "name": "Cursed",
+      "description": "-1d4 penalty to attack rolls and saving throws.",
+      "attack_penalty_dice": "1d4",
+      "default_duration": 10
+    },
+    {
+      "id": "regenerating",
+      "name": "Regenerating",
+      "description": "Heal at the start of each turn.",
+      "heal_per_turn": "1d4",
+      "default_duration": 5
+    },
+    {
+      "id": "defending",
+      "name": "Defending",
+      "description": "+2 AC until next turn. Applied by defend action.",
+      "ac_modifier": 2,
+      "default_duration": 1
+    },
+    {
+      "id": "dodging",
+      "name": "Dodging",
+      "description": "Attacks against you have disadvantage until next turn.",
+      "attackers_disadvantage": true,
+      "default_duration": 1
+    }
+  ]
+}
