@@ -2,7 +2,7 @@
 
 A voice-driven tabletop RPG built with LiveKit agents, featuring real-time speech interaction, dynamic storytelling, and classic D&D-style mechanics.
 
-[![Dungeons and Agents Demo](https://img.youtube.com/vi/1xm4f8HzBEI/0.jpg)](https://www.youtube.com/watch?v=1xm4f8HzBEI)
+[![Dungeons and Agents Demo](https://img.youtube.com/vi/2h2fSNHd1E4/0.jpg)](https://youtu.be/2h2fSNHd1E4)
 
 ## Overview
 
